@@ -13,6 +13,7 @@ metadata:
   annotations: {{ toYaml .Values.annotations | nindent 4 }}
 {{- end }}
 spec:
+  serviceName: cubestore-router
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.cubestoreRouter.replicas }}
   {{- end }}
@@ -30,7 +31,6 @@ spec:
         cubejsApp: cubestoreRouter
         {{- include "chart.selectorLabels" . | nindent 8 }}
     spec:
-      serviceName: cubestore-router
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
